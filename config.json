@@ -1,0 +1,40 @@
+{
+	"mode":"release",
+	"upload":{
+		"key":"XXXXXXXX",
+		"secret":"XXXXXXXXXXX",
+		"url":"http://oss-cn-beijing.aliyuncs.com",
+	    "bucketname":"binaryframework",
+	    "download_host":"https://binaryframework.oss-cn-beijing.aliyuncs.com/"
+	},
+	"swift_version": 4.2,
+	"sdk": "iphoneos",
+	"mach_o_type": "staticlib",
+	"git": {
+		"force": true
+	},
+    "email":{
+    	"host":"smtp.gmail.com",
+    	"user":"XXXXXXXXX@gmail.com",
+    	"port":587,
+    	"pass":"XXXXXXXX",
+    	"sender":"XXXXXXXXX@gmail.com",
+    	"receivers":["XXXXXXXX@163.com"]
+    },
+    "pod": {
+		"debug": {
+			"source":["https://github.com/zhuamaodeyu/LibSpec.git","https://github.com/CocoaPods/Specs.git"],
+			"spec_name":"LibSpec"
+		},
+		"release": {
+			"source":["https://github.com/zhuamaodeyu/LibSpec.git","https://github.com/CocoaPods/Specs.git"],
+			"spec_name":"LibSpec"
+		}
+    },
+	"mapping": {
+		"SwiftyJSON": "SwiftyJSON iOS",
+		"HandyJSON":"HandyJSON iOS",
+		"Alamofire": "Alamofire iOS",
+		"SwiftDate": "SwiftDate-iOS"
+	}
+}
