@@ -7,7 +7,18 @@ import os
 import json
 import sys
 
+'''
+针对单独库进行测试及打包    
 
+参数1： 打包库地址(工作环境地址)  
+参数2： 配置文件地址 
+
+
+
+
+./build.py /Users/zhuamaodeyu/Desktop/BinaryFramework/LibFramework/Alamofire  /Users/zhuamaodeyu/Desktop/BinaryFramework/TKFrameworkBinrary/config.json
+
+'''
 def read_config_file(path):
     if not os.path.exists(path):
         print("config file is not found, please check file")

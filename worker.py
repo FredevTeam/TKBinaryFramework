@@ -59,7 +59,9 @@ def end_log_point(stream, title):
 # 监测是否有 cartfile 
 def check_Carthage(path):
     if not os.path.isfile(path + '/Cartfile'):
-        os.system('touch {0}/Cartfile'.format(path))
+        # os.system('touch {0}/Cartfile'.format(path))
+        return  False
+    return True
 
 #=============Xcode ===========================
 def xcode_clean(log_file, workspace, project,scheme_name, mode, swift_version):
@@ -146,7 +148,11 @@ def xcode_build(log_file, workspace, project , scheme_name, swift_version, mode,
 
     begin_log_point(input, '>>>>>>>>>>>>>>>>>>>Begin clean .>>>>>>>>>>>>>>>>>>>>>')
 
-    archive = 'archive -archivePath ./build/ ' if sdk == 'iphoneos' else ''
+    # 没进入来啊
+    base_p =  os.path.abspath(os.path.join(workspace, '..'))
+
+    build_path = os.path.join(base_p, 'build');
+    archive = 'archive -archivePath {0}'.format(build_path) if sdk == 'iphoneos' else ''
     command_iphoneos = ''
     command_sim = ''
     if workspace is not None:
@@ -156,27 +162,27 @@ def xcode_build(log_file, workspace, project , scheme_name, swift_version, mode,
                           '-scheme "{1}" ' \
                           '-configuration {2} ' \
                           '-sdk {3} ' \
-                          '-derivedDataPath ./build/ ' \
+                          '-derivedDataPath {4} ' \
                           'ONLY_ACTIVE_ARCH=NO ' \
                           'CODE_SIGNING_REQUIRED=NO ' \
                           'CODE_SIGN_IDENTITY= ' \
                           'COPY_PHASE_STRIP=NO ' \
                           'GENERATE_PKGINFO_FILE=YES ' \
                           'COPY_PHASE_STRIP=NO ' \
-                          'MACH_O_TYPE={4} ' \
-                          'BUILD_ROOT=./build/ ' \
-                          'BUILD_DIR=./build/ ' \
-                          'SWIFT_VERSION={5} ' \
-                          'CONFIGURATION_BUILD_DIR=./build/ ' \
+                          'MACH_O_TYPE={5} ' \
+                          'BUILD_ROOT={4} ' \
+                          'BUILD_DIR= {4} ' \
+                          'SWIFT_VERSION={6} ' \
+                          'CONFIGURATION_BUILD_DIR= {4} ' \
                           'SKIP_INSTALL=YES ' \
                           'STRIP_INSTALLED_PRODUCT=NO ' \
                           'GCC_GENERATE_DEBUGGING_SYMBOLS=YES ' \
                           'DEPLOYMENT_LOCATION=YES ' \
-                          'BUILT_PRODUCTS_DIR=./build/ ' \
-                          '{6} ' \
+                          'BUILT_PRODUCTS_DIR= {4} ' \
+                          '{7} ' \
                           'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=NO ' \
                           'CLANG_ENABLE_CODE_COVERAGE=NO ' \
-                          'build'.format(workspace, scheme_name, mode, 'iphonesimulator', mach_o_type,
+                          'build'.format(workspace, scheme_name, mode, 'iphonesimulator',build_path, mach_o_type,
                                           swift_version, '')
             pass
 
@@ -185,25 +191,25 @@ def xcode_build(log_file, workspace, project , scheme_name, swift_version, mode,
                            '-scheme "{1}" ' \
                            '-configuration {2} ' \
                            '-sdk {3} ' \
-                           '-derivedDataPath ./build/ ' \
+                           '-derivedDataPath {4} ' \
                            'ONLY_ACTIVE_ARCH=NO ' \
                            'CODE_SIGNING_REQUIRED=NO ' \
                            'CODE_SIGN_IDENTITY= ' \
                            'COPY_PHASE_STRIP=NO ' \
                            'GENERATE_PKGINFO_FILE=YES ' \
                            'COPY_PHASE_STRIP=NO ' \
-                           'MACH_O_TYPE={4} ' \
-                           'BUILD_ROOT=./build/ BUILD_DIR=./build/ ' \
-                           'SWIFT_VERSION={5} ' \
-                           'CONFIGURATION_BUILD_DIR=./build/ ' \
+                           'MACH_O_TYPE={5} ' \
+                           'BUILD_ROOT={4} BUILD_DIR={4} ' \
+                           'SWIFT_VERSION={6} ' \
+                           'CONFIGURATION_BUILD_DIR={4} ' \
                            'SKIP_INSTALL=YES ' \
                            'STRIP_INSTALLED_PRODUCT=NO ' \
                            'DEPLOYMENT_LOCATION=YES ' \
-                           'BUILT_PRODUCTS_DIR=./build/ ' \
-                           '{6} ' \
+                           'BUILT_PRODUCTS_DIR={4} ' \
+                           '{7} ' \
                            'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=NO ' \
                            'CLANG_ENABLE_CODE_COVERAGE=NO ' \
-                           'build'.format(workspace, scheme_name, mode, 'iphoneos', mach_o_type,
+                           'build'.format(workspace, scheme_name, mode, 'iphoneos',build_path, mach_o_type,
                                           swift_version, archive)
 
         pass
@@ -214,24 +220,24 @@ def xcode_build(log_file, workspace, project , scheme_name, swift_version, mode,
                       '-scheme "{1}" ' \
                       '-configuration {2} ' \
                       '-sdk {3} ' \
-                      '-derivedDataPath ./build/ ' \
+                      '-derivedDataPath {4} ' \
                       'ONLY_ACTIVE_ARCH=NO ' \
                       'CODE_SIGNING_REQUIRED=NO ' \
                           'CODE_SIGN_IDENTITY= ' \
                           'COPY_PHASE_STRIP=NO ' \
                           'GENERATE_PKGINFO_FILE=YES ' \
                           'COPY_PHASE_STRIP=NO ' \
-                      'MACH_O_TYPE={4} ' \
-                      'BUILD_ROOT=./build/ BUILD_DIR=./build/ ' \
-                      'SWIFT_VERSION={5} ' \
-                      'CONFIGURATION_BUILD_DIR=./build/ ' \
+                      'MACH_O_TYPE={5} ' \
+                      'BUILD_ROOT={4} BUILD_DIR={4} ' \
+                      'SWIFT_VERSION={6} ' \
+                      'CONFIGURATION_BUILD_DIR={4} ' \
                       'SKIP_INSTALL=YES ' \
                           'STRIP_INSTALLED_PRODUCT=NO ' \
                           'DEPLOYMENT_LOCATION=YES ' \
-                      'BUILT_PRODUCTS_DIR=./build/ ' \
-                      '{6} ' \
+                      'BUILT_PRODUCTS_DIR={4} ' \
+                      '{7} ' \
                       'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=NO CLANG_ENABLE_CODE_COVERAGE=NO ' \
-                      'build'.format(project, scheme_name, mode, 'iphonesimulator', mach_o_type,
+                      'build'.format(project, scheme_name, mode, 'iphonesimulator',build_path, mach_o_type,
                                       swift_version, '')
             pass
         command_iphoneos = 'xcodebuild ' \
@@ -239,24 +245,24 @@ def xcode_build(log_file, workspace, project , scheme_name, swift_version, mode,
                   '-scheme "{1}" ' \
                   '-configuration {2} ' \
                   '-sdk {3} ' \
-                  '-derivedDataPath ./build/ ' \
+                  '-derivedDataPath {4} ' \
                   'ONLY_ACTIVE_ARCH=NO ' \
                   'CODE_SIGNING_REQUIRED=NO ' \
                            'CODE_SIGN_IDENTITY= ' \
                            'COPY_PHASE_STRIP=NO ' \
                            'GENERATE_PKGINFO_FILE=YES ' \
                            'COPY_PHASE_STRIP=NO ' \
-                  'MACH_O_TYPE={4} ' \
-                  'BUILD_ROOT=./build/ BUILD_DIR=./build/ ' \
-                  'SWIFT_VERSION={5} ' \
-                  'CONFIGURATION_BUILD_DIR=./build/ ' \
+                  'MACH_O_TYPE={5} ' \
+                  'BUILD_ROOT={4} BUILD_DIR={4} ' \
+                  'SWIFT_VERSION={6} ' \
+                  'CONFIGURATION_BUILD_DIR={4} ' \
                   'SKIP_INSTALL=YES ' \
                            'STRIP_INSTALLED_PRODUCT=NO ' \
                            'DEPLOYMENT_LOCATION=YES ' \
-                  'BUILT_PRODUCTS_DIR=./build/ ' \
-                  '{6} ' \
+                  'BUILT_PRODUCTS_DIR={4} ' \
+                  '{7} ' \
                   'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=NO CLANG_ENABLE_CODE_COVERAGE=NO ' \
-                  'build'.format(project, scheme_name, mode, 'iphoneos', mach_o_type,
+                  'build'.format(project, scheme_name, mode, 'iphoneos',build_path, mach_o_type,
                                   swift_version, archive)
 
         pass
@@ -636,7 +642,7 @@ def worker(args):
     global global_log_path
     global debug
 
-    workspace_path, config, global_log_path = args
+    workspace_path, config, global_log_path , d = args
     debug = True if config['mode'] == 'debug' else False
 
 
@@ -654,8 +660,6 @@ def worker(args):
         return (True, None, None, workspace_path, workspace_name)
 
 
-
-
     date = datetime.datetime.now().strftime("%Y-%m-%d-%H")
     file_path = os.path.join(global_log_path,'{0}-{1}.log'.format(workspace_name, '' if debug else date))
 
@@ -670,6 +674,13 @@ def worker(args):
             update_profile(pod_file)
             pod_install(fdout,pod_file)
         end_log_point(fdout,'pod')
+
+        begin_log_point(fdout,"carthage build")
+        carthage_file = check_Carthage(workspace_path)
+        if carthage_file:
+            if not carthage_build(fdout):
+                return (False, None, 'carthage build filed', workspace_path, workspace_name)
+        end_log_point(fdout,"carthage build")
         #==================================================#
 
 
@@ -695,11 +706,6 @@ def worker(args):
 
 
 
-        # begin_log_point(fdout,"carthage build")
-        # check_Carthage(workspace_path)
-        # if not carthage_build(fdout):
-        #     return (False,None,'carthage build filed',workspace_path, workspace_name)
-        # end_log_point(fdout,"carthage build")
         begin_log_point(fdout, 'xcode build')
         #==================================================#
 
