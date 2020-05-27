@@ -38,7 +38,7 @@ workspace = sys.argv[1]
 config_path = sys.argv[2]
 
 # 单独构建
-worker.worker((workspace,read_config_file(config_path), workspace,True))
+worker.worker((workspace,read_config_file(config_path), workspace))
 
 
 

@@ -98,7 +98,11 @@ def sendEmail(object):
     return False
 
 
-def main(workspace_path,config_file_path, log_path):
+def main(workspace_path,config_file_path, log_path):  
+    workspace_path = os.path.abspath(workspace_path)
+    config_file_path = os.path.abspath(config_file_path)
+    log_path = os.path.abspath(log_path)
+
     if check_xcode() is False:
         print('please check xcode is not install or need xcode-select default xcode')
         return
@@ -140,4 +144,7 @@ def main(workspace_path,config_file_path, log_path):
         sendEmail(result)
 
 if __name__ == '__main__':
-    main('/Users/zhuamaodeyu/Documents/LibFramework','./config.json', '/Users/zhuamaodeyu/Documents/LibFramework/log')
+    # main('/Users/zhuamaodeyu/Documents/LibFramework','./config.json', '/Users/zhuamaodeyu/Documents/LibFramework/log')
+    main('../LibFramework','./config.json','../Log')
+    # worker.worker((dir, config, global_log_path))
+    # breakcan't pickle staticmethod objects

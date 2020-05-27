@@ -642,7 +642,7 @@ def worker(args):
     global global_log_path
     global debug
 
-    workspace_path, config, global_log_path , d = args
+    workspace_path, config, global_log_path = args
     debug = True if config['mode'] == 'debug' else False
 
 
@@ -750,7 +750,7 @@ def worker(args):
                 # podfile_messages_copy.remove(ms)
                 # print((200,'{0}.zip'.format(pod_version),'{0}/{1}/{2}'.format(upload["download_host"], pod_name, '{0}.zip'.format(pod_version)),None))
                 # upload_results.append((200,'{0}.zip'.format(pod_version),'{0}/{1}/{2}'.format(upload["download_host"], pod_name, '{0}.zip'.format(pod_version)),None))
-
+        print(upload_results)
         if len(upload_results) != len(podfile_messages_copy):
             for r in upload_results:
                 code,name,_,error = r
