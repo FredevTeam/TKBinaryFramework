@@ -81,20 +81,25 @@
 
 
 
-## Demo 工程  
-1. 下载项目中的Demo zip 压缩包并解压  
+## Demo 工程    
+> 此工程会用到私人的OSS 秘钥，会不定期重置，请使用自己的   
+
+1. `clone git@github.com:zhuamaodeyu/TKBinaryFrameworkDemo.git`    
+2. 接下同目录下的  `LibFramework.zip` 压缩包  
 2. 方式1： `Pycharm`导出  
-	* 设置`python` 环境  
-		![](./Xnip2020-05-27_09-34-40.jpg)   
+	* 设置`python` 环境()  
+		![](https://github.com/zhuamaodeyu/TKBinaryFramework/blob/master/Xnip2020-05-27_09-34-40.jpg)   
 	* 运行  
-		![](Xnip2020-05-27_09-36-15.jpg)  
+		![](https://github.com/zhuamaodeyu/TKBinaryFramework/blob/master/Xnip2020-05-27_09-36-15.jpg)  
 		__注意： 此处需要根据自己本地环境，修改执行脚本路径__   
 
 3. 方式2：  
 	使用命令行方式运行  
-	* 进入项目目录(TKBinaryFramework目录下)  
+	* 进入项目目录(`TKBinaryFramework`目录下)  
 	* 执行`./venv/bin/python ./main.py` 运行
 
+4. 验证framework是否上传成功  
+	默认情况下，会打印出framework的上传地址，可以根据地址下载到具体的包  
  
 
 
@@ -149,7 +154,8 @@
  
 
 ### 说明
-1. 本脚本可能还存在部分不兼容问题， 如果在使用过程中，遇到了任何问题，请通过 github或者 下方 gmail 方式联系我  
+1. 本脚本可能还存在部分不兼容问题， 如果在使用过程中，遇到了任何问题，请通过 github或者 下方 gmail 方式联系我    
+2. 当前脚本暂不支持OSX 系统  
 
 
 
