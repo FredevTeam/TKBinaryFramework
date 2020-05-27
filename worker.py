@@ -171,14 +171,14 @@ def xcode_build(log_file, workspace, project , scheme_name, swift_version, mode,
                           'COPY_PHASE_STRIP=NO ' \
                           'MACH_O_TYPE={5} ' \
                           'BUILD_ROOT={4} ' \
-                          'BUILD_DIR= {4} ' \
+                          'BUILD_DIR={4} ' \
                           'SWIFT_VERSION={6} ' \
-                          'CONFIGURATION_BUILD_DIR= {4} ' \
+                          'CONFIGURATION_BUILD_DIR={4} ' \
                           'SKIP_INSTALL=YES ' \
                           'STRIP_INSTALLED_PRODUCT=NO ' \
                           'GCC_GENERATE_DEBUGGING_SYMBOLS=YES ' \
                           'DEPLOYMENT_LOCATION=YES ' \
-                          'BUILT_PRODUCTS_DIR= {4} ' \
+                          'BUILT_PRODUCTS_DIR={4} ' \
                           '{7} ' \
                           'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=NO ' \
                           'CLANG_ENABLE_CODE_COVERAGE=NO ' \
@@ -199,7 +199,8 @@ def xcode_build(log_file, workspace, project , scheme_name, swift_version, mode,
                            'GENERATE_PKGINFO_FILE=YES ' \
                            'COPY_PHASE_STRIP=NO ' \
                            'MACH_O_TYPE={5} ' \
-                           'BUILD_ROOT={4} BUILD_DIR={4} ' \
+                           'BUILD_ROOT={4} ' \
+                           'BUILD_DIR={4} ' \
                            'SWIFT_VERSION={6} ' \
                            'CONFIGURATION_BUILD_DIR={4} ' \
                            'SKIP_INSTALL=YES ' \
@@ -228,7 +229,8 @@ def xcode_build(log_file, workspace, project , scheme_name, swift_version, mode,
                           'GENERATE_PKGINFO_FILE=YES ' \
                           'COPY_PHASE_STRIP=NO ' \
                       'MACH_O_TYPE={5} ' \
-                      'BUILD_ROOT={4} BUILD_DIR={4} ' \
+                      'BUILD_ROOT={4} ' \
+                      'BUILD_DIR={4} ' \
                       'SWIFT_VERSION={6} ' \
                       'CONFIGURATION_BUILD_DIR={4} ' \
                       'SKIP_INSTALL=YES ' \
@@ -277,6 +279,7 @@ def xcode_build(log_file, workspace, project , scheme_name, swift_version, mode,
             pass
         p = subprocess.run(command_iphoneos, stdout=input, stderr=input, shell=True)
         sim_p = subprocess.run(command_sim, stdout=input, stderr=input, shell=True)
+        print("构建完成")
         if p.returncode == 0 and sim_p.returncode == 0:
             return  True
     else:
@@ -309,7 +312,7 @@ def xcode_cop_framework(base_path):
         iphoneos_frameworks = glob.glob('{0}/*.framework'.format(iphoneos_path))
         iphonesimulator_frameworks = glob.glob('{0}/*.framework'.format(iphonesimulator_path))
         if len(iphoneos_frameworks) == 0 or len(iphonesimulator_frameworks) == 0:
-            return
+            return False
         lipo_framework_path = lipo_framework(iphoneos_frameworks[0], iphonesimulator_frameworks[0])
         if lipo_framework_path == None:
             return  False
@@ -624,7 +627,6 @@ def push_pod_json_file(log,path):
                     log.write('pod repo push Fail')
 
     return  False
-
 
 
 def worker(args):
